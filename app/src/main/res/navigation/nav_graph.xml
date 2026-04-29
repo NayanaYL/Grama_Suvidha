@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/projectListFragment">
+
+    <fragment
+        android:id="@+id/projectListFragment"
+        android:name="com.gramasuvidha.portal.ui.list.ProjectListFragment"
+        android:label="Grama Suvidha"
+        tools:layout="@layout/fragment_project_list">
+        <action
+            android:id="@+id/action_projectListFragment_to_projectDetailFragment"
+            app:destination="@id/projectDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/projectDetailFragment"
+        android:name="com.gramasuvidha.portal.ui.detail.ProjectDetailFragment"
+        android:label="Project Detail"
+        tools:layout="@layout/fragment_project_detail">
+        <argument
+            android:name="projectId"
+            app:argType="integer" />
+    </fragment>
+</navigation>

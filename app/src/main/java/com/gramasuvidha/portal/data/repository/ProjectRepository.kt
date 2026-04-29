@@ -1,0 +1,30 @@
+package com.gramasuvidha.portal.data.repository
+
+import com.gramasuvidha.portal.data.local.dao.FeedbackDao
+import com.gramasuvidha.portal.data.local.dao.ProjectDao
+import com.gramasuvidha.portal.data.local.entities.Feedback
+import com.gramasuvidha.portal.data.local.entities.ProjectEntity
+import kotlinx.coroutines.flow.Flow
+
+class ProjectRepository(
+    private val projectDao: ProjectDao,
+    private val feedbackDao: FeedbackDao
+) {
+    val allProjects: Flow<List<ProjectEntity>> = projectDao.getAllProjects()
+
+    suspend fun getProjectById(id: String): ProjectEntity? {
+        return projectDao.getProjectById(id)
+    }
+
+    suspend fun insertProjects(projects: List<ProjectEntity>) {
+        projectDao.insertProjects(projects)
+    }
+
+    fun getFeedbackForProject(projectId: String): Flow<List<Feedback>> {
+        return feedbackDao.getFeedbackForProject(projectId)
+    }
+
+    suspend fun insertFeedback(feedback: Feedback) {
+        feedbackDao.insertFeedback(feedback)
+    }
+}
