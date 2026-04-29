@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gramasuvidha.portal.data.local.entities.ProjectEntity
 import com.gramasuvidha.portal.databinding.ItemProjectBinding
+import java.util.Locale
 
 class ProjectAdapter(private val onItemClick: (ProjectEntity) -> Unit) :
     ListAdapter<ProjectEntity, ProjectAdapter.ProjectViewHolder>(ProjectDiffCallback()) {
@@ -25,7 +26,18 @@ class ProjectAdapter(private val onItemClick: (ProjectEntity) -> Unit) :
     class ProjectViewHolder(private val binding: ItemProjectBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(project: ProjectEntity) {
+            val currentLang = Locale.getDefault().language
+            
+            // Logic to select text based on language
+            val displayName = if (currentLang == "kn") project.nameKn else project.nameEn
+            val displayLocation = if (currentLang == "kn") project.locationKn else project.locationEn
+            val displayStatus = if (currentLang == "kn") project.statusKn else project.statusEn
+
             binding.project = project
+            binding.projectName.text = displayName
+            binding.projectLocation.text = displayLocation
+            binding.statusBadge.text = displayStatus
+
             binding.executePendingBindings()
         }
     }

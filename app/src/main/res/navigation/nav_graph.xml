@@ -22,6 +22,6 @@
         tools:layout="@layout/fragment_project_detail">
         <argument
             android:name="projectId"
-            app:argType="integer" />
+            app:argType="string" />
     </fragment>
 </navigation>

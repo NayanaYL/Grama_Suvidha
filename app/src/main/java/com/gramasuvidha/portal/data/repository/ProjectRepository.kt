@@ -12,6 +12,10 @@ class ProjectRepository(
 ) {
     val allProjects: Flow<List<ProjectEntity>> = projectDao.getAllProjects()
 
+    fun getProjectsByStatus(status: String): Flow<List<ProjectEntity>> {
+        return projectDao.getProjectsByStatus(status)
+    }
+
     suspend fun getProjectById(id: String): ProjectEntity? {
         return projectDao.getProjectById(id)
     }

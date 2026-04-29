@@ -9,11 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.gramasuvidha.portal.R
 import com.gramasuvidha.portal.data.local.AppDatabase
 import com.gramasuvidha.portal.data.repository.ProjectRepository
 import com.gramasuvidha.portal.databinding.FragmentProjectDetailBinding
 import com.gramasuvidha.portal.ui.feedback.FeedbackDialog
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class ProjectDetailFragment : Fragment() {
 
@@ -47,7 +49,31 @@ class ProjectDetailFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.project.collect { project ->
-                    binding.project = project
+                    project?.let {
+                        val currentLang = Locale.getDefault().language
+                        binding.project = it
+                        
+                        // Localized text
+                        binding.detailName.text = if (currentLang == "kn") it.nameKn else it.nameEn
+                        binding.detailDescription.text = if (currentLang == "kn") it.descriptionKn else it.descriptionEn
+                        
+                        // Update UI labels
+                        binding.btnFeedback.text = getString(R.string.give_feedback)
+                        binding.titleWorkSplit.text = getString(R.string.work_amount_split)
+                        binding.titleComponents.text = getString(R.string.components_used)
+                        
+                        // Mock data for split and components (as they aren't in Entity yet)
+                        if (it.id == "1") { // Main Road Repair
+                            binding.layoutSplit.visibility = View.VISIBLE
+                            binding.workSplitContent.text = if (currentLang == "kn") 
+                                "ಡಾಂಬರು: ₹6,00,000\nಕೂಲಿ: ₹3,00,000\nಇತರೆ: ₹1,00,000" 
+                                else "Bitumen: ₹6,00,000\nLabor: ₹3,00,000\nOther: ₹1,00,000"
+                                
+                            binding.componentsContent.text = if (currentLang == "kn")
+                                "1. ಡಾಂಬರು (VG-30)\n2. ಜಲ್ಲಿ ಕಲ್ಲುಗಳು\n3. ರೋಲರ್ ಯಂತ್ರ"
+                                else "1. Bitumen (VG-30)\n2. Crushed Stones\n3. Road Roller"
+                        }
+                    }
                 }
             }
         }

@@ -9,6 +9,9 @@ interface ProjectDao {
     @Query("SELECT * FROM projects")
     fun getAllProjects(): Flow<List<ProjectEntity>>
 
+    @Query("SELECT * FROM projects WHERE statusEn = :status")
+    fun getProjectsByStatus(status: String): Flow<List<ProjectEntity>>
+
     @Query("SELECT * FROM projects WHERE id = :id")
     suspend fun getProjectById(id: String): ProjectEntity?
 

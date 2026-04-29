@@ -1,9 +1,11 @@
 package com.gramasuvidha.portal
 
 import android.app.Application
+import android.content.Context
 import com.gramasuvidha.portal.data.local.AppDatabase
 import com.gramasuvidha.portal.data.local.entities.ProjectEntity
 import com.gramasuvidha.portal.data.repository.ProjectRepository
+import com.gramasuvidha.portal.util.LocaleHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
@@ -11,6 +13,10 @@ import kotlinx.coroutines.launch
 class GramaApplication : Application() {
 
     private val applicationScope = CoroutineScope(SupervisorJob())
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(LocaleHelper.onAttach(base))
+    }
 
     override fun onCreate() {
         super.onCreate()
