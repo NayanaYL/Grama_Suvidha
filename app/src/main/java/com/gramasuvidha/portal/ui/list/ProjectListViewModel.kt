@@ -23,6 +23,18 @@ class ProjectListViewModel(private val repository: ProjectRepository) : ViewMode
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
+    val ongoingCount: StateFlow<Int> = repository.allProjects
+        .map { list -> list.count { it.statusEn.equals("In Progress", ignoreCase = true) || it.statusEn.equals("ONGOING", ignoreCase = true) } }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
+
+    val completedCount: StateFlow<Int> = repository.allProjects
+        .map { list -> list.count { it.statusEn.equals("Completed", ignoreCase = true) } }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
+
+    val plannedCount: StateFlow<Int> = repository.allProjects
+        .map { list -> list.count { it.statusEn.equals("Planning", ignoreCase = true) || it.statusEn.equals("PLANNED", ignoreCase = true) } }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
+
     fun setFilter(status: String?) {
         _filterStatus.value = status
     }

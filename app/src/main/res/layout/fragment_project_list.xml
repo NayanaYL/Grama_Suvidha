@@ -127,9 +127,10 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/ongoingIcon" />
                         <TextView
+                            android:id="@+id/ongoingCountText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1"
+                            android:text="0"
                             android:textColor="#1976D2"
                             android:textSize="24sp"
                             android:textStyle="bold"
@@ -172,9 +173,10 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/completedIcon" />
                         <TextView
+                            android:id="@+id/completedCountText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1"
+                            android:text="0"
                             android:textColor="#388E3C"
                             android:textSize="24sp"
                             android:textStyle="bold"
@@ -217,9 +219,10 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/plannedIcon" />
                         <TextView
+                            android:id="@+id/plannedCountText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1"
+                            android:text="0"
                             android:textColor="#F57F17"
                             android:textSize="24sp"
                             android:textStyle="bold"
@@ -280,6 +283,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_project" />
 

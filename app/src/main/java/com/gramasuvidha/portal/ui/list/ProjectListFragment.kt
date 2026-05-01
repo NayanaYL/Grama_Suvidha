@@ -41,6 +41,9 @@ class ProjectListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProjectListBinding.inflate(inflater, container, false)
+        // Ensure the binding lifecycle is tied to the fragment's view
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
         return binding.root
     }
 
@@ -99,8 +102,30 @@ class ProjectListFragment : Fragment() {
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.filterStatus.collect { status ->
-                    updateTabUI(status)
+                // Observe filter status
+                launch {
+                    viewModel.filterStatus.collect { status ->
+                        updateTabUI(status)
+                    }
+                }
+                
+                // Observe project counts for summary cards
+                launch {
+                    viewModel.ongoingCount.collect { count ->
+                        binding.ongoingCountText.text = count.toString()
+                    }
+                }
+                
+                launch {
+                    viewModel.completedCount.collect { count ->
+                        binding.completedCountText.text = count.toString()
+                    }
+                }
+                
+                launch {
+                    viewModel.plannedCount.collect { count ->
+                        binding.plannedCountText.text = count.toString()
+                    }
                 }
             }
         }

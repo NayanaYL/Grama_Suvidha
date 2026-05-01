@@ -9,5 +9,7 @@ data class Feedback(
     val projectId: String,
     val rating: Int,
     val issueDescription: String,
+    val isIssue: Boolean = false,
+    val citizenName: String = "Anonymous",
     val timestamp: Long = System.currentTimeMillis()
 )

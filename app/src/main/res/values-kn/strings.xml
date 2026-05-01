@@ -18,4 +18,14 @@
     <string name="give_feedback">ಪ್ರತಿಕ್ರಿಯೆ ನೀಡಿ</string>
     <string name="work_amount_split">ಕೆಲಸದ ಮೊತ್ತದ ವಿವರಣೆ</string>
     <string name="components_used">ಬಳಸಿದ ಘಟಕಗಳು</string>
+
+    <string name="submit_feedback">ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಸಲ್ಲಿಸಿ</string>
+    <string name="your_name">ನಿಮ್ಮ ಹೆಸರು</string>
+    <string name="your_feedback">ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆ</string>
+    <string name="issue_description">ಸಮಸ್ಯೆಯ ವಿವರಣೆ</string>
+    <string name="report_issue">ಸಮಸ್ಯೆಯನ್ನು ವರದಿ ಮಾಡಿ</string>
+    <string name="rating">ರೇಟಿಂಗ್</string>
+    <string name="submit">ಸಲ್ಲಿಸು</string>
+    <string name="feedback_submitted">ಯಶಸ್ವಿಯಾಗಿ ಸಲ್ಲಿಸಲಾಗಿದೆ!</string>
+    <string name="error_empty_feedback">ದಯವಿಟ್ಟು ವಿವರಣೆಯನ್ನು ನಮೂದಿಸಿ.</string>
 </resources>

@@ -11,6 +11,7 @@ data class ProjectEntity(
     val locationEn: String,
     val locationKn: String,
     val budget: String,
+    val expectedCompletionDate: String, // New field for compliance
     val statusEn: String,
     val statusKn: String,
     val completionPercentage: Int,

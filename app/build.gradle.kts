@@ -43,6 +43,14 @@ android {
     }
 }
 
+// Workaround for "task 'testClasses' not found" error in some Gradle environments
+tasks.register("testClasses") {
+    description = "Placeholder for testClasses task"
+    group = "verification"
+    // Depend on common unit test compilation tasks if they exist
+    dependsOn(tasks.matching { it.name.contains("UnitTest") && (it.name.endsWith("Classes") || it.name.startsWith("compile")) })
+}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

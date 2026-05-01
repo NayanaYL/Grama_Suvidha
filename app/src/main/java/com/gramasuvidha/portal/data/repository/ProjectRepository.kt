@@ -24,6 +24,10 @@ class ProjectRepository(
         projectDao.insertProjects(projects)
     }
 
+    suspend fun deleteAllProjects() {
+        projectDao.deleteAllProjects()
+    }
+
     fun getFeedbackForProject(projectId: String): Flow<List<Feedback>> {
         return feedbackDao.getFeedbackForProject(projectId)
     }

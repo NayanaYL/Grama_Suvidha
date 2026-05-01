@@ -59,28 +59,75 @@ class ProjectDetailFragment : Fragment() {
                         
                         // Update UI labels
                         binding.btnFeedback.text = getString(R.string.give_feedback)
+                        binding.btnReportIssue.text = getString(R.string.report_issue)
                         binding.titleWorkSplit.text = getString(R.string.work_amount_split)
                         binding.titleComponents.text = getString(R.string.components_used)
                         
-                        // Mock data for split and components (as they aren't in Entity yet)
-                        if (it.id == "1") { // Main Road Repair
-                            binding.layoutSplit.visibility = View.VISIBLE
-                            binding.workSplitContent.text = if (currentLang == "kn") 
-                                "ಡಾಂಬರು: ₹6,00,000\nಕೂಲಿ: ₹3,00,000\nಇತರೆ: ₹1,00,000" 
-                                else "Bitumen: ₹6,00,000\nLabor: ₹3,00,000\nOther: ₹1,00,000"
-                                
-                            binding.componentsContent.text = if (currentLang == "kn")
-                                "1. ಡಾಂಬರು (VG-30)\n2. ಜಲ್ಲಿ ಕಲ್ಲುಗಳು\n3. ರೋಲರ್ ಯಂತ್ರ"
-                                else "1. Bitumen (VG-30)\n2. Crushed Stones\n3. Road Roller"
-                        }
+                        // Show details
+                        binding.layoutSplit.visibility = View.VISIBLE
+                        binding.layoutComponents.visibility = View.VISIBLE
+                        
+                        setMockDetails(it.id, currentLang)
                     }
                 }
             }
         }
 
         binding.btnFeedback.setOnClickListener {
-            val dialog = FeedbackDialog.newInstance(projectId)
+            val dialog = FeedbackDialog.newInstance(projectId, isIssue = false)
             dialog.show(childFragmentManager, "FeedbackDialog")
+        }
+
+        binding.btnReportIssue.setOnClickListener {
+            val dialog = FeedbackDialog.newInstance(projectId, isIssue = true)
+            dialog.show(childFragmentManager, "FeedbackDialog")
+        }
+    }
+
+    private fun setMockDetails(id: String, lang: String) {
+        val isKn = lang == "kn"
+        
+        when {
+            id == "1" || id == "PROJ-001" || id.contains("Road", ignoreCase = true) -> {
+                binding.workSplitContent.text = if (isKn) 
+                    "ಡಾಂಬರು: ₹6,00,000\nಕೂಲಿ: ₹3,00,000\nಇತರೆ: ₹1,00,000" 
+                    else "Bitumen: ₹6,00,000\nLabor: ₹3,00,000\nOther: ₹1,00,000"
+                binding.componentsContent.text = if (isKn)
+                    "1. ಡಾಂಬರು (VG-30)\n2. ಜಲ್ಲಿ ಕಲ್ಲುಗಳು\n3. ರೋಲರ್ ಯಂತ್ರ"
+                    else "1. Bitumen (VG-30)\n2. Crushed Stones\n3. Road Roller"
+            }
+            id == "2" || id == "PROJ-013" || id.contains("Water", ignoreCase = true) || id.contains("Borewell", ignoreCase = true) -> {
+                binding.workSplitContent.text = if (isKn)
+                    "ಪೈಪ್‌ಗಳು: ₹2,00,000\nಪಂಪ್ ಸೆಟ್: ₹1,00,000\nಕೂಲಿ: ₹50,000"
+                    else "Pipes: ₹2,00,000\nPump Set: ₹1,00,000\nLabor: ₹50,000"
+                binding.componentsContent.text = if (isKn)
+                    "1. PVC ಪೈಪ್‌ಗಳು\n2. ಸಬ್ಮರ್ಸಿಬಲ್ ಪಂಪ್\n3. ಸೋಲಾರ್ ಪ್ಯಾನಲ್"
+                    else "1. PVC Pipes\n2. Submersible Pump\n3. Solar Panels"
+            }
+            id == "3" || id == "PROJ-005" || id == "PROJ-010" || id.contains("Hall", ignoreCase = true) || id.contains("Temple", ignoreCase = true) || id.contains("Library", ignoreCase = true) -> {
+                binding.workSplitContent.text = if (isKn)
+                    "ಸಿಮೆಂಟ್: ₹4,00,000\nಇಟ್ಟಿಗೆಗಳು: ₹2,00,000\nಬಣ್ಣ: ₹1,00,000\nಕೂಲಿ: ₹1,00,000"
+                    else "Cement: ₹4,00,000\nBricks: ₹2,00,000\nPaint: ₹1,00,000\nLabor: ₹1,00,000"
+                binding.componentsContent.text = if (isKn)
+                    "1. ಪೋರ್ಟ್ಲ್ಯಾಂಡ್ ಸಿಮೆಂಟ್\n2. ಕೆಂಪು ಇಟ್ಟಿಗೆಗಳು\n3. ಟೈಲ್ಸ್\n4. ಎಲ್ಇಡಿ ದೀಪಗಳು"
+                    else "1. Portland Cement\n2. Red Bricks\n3. Floor Tiles\n4. LED Lights"
+            }
+            id == "PROJ-003" || id.contains("Tree", ignoreCase = true) -> {
+                binding.workSplitContent.text = if (isKn)
+                    "ಸಸಿಗಳು: ₹1,00,000\nಗೊಬ್ಬರ: ₹50,000\nಬೇಲಿ: ₹50,000\nಕೂಲಿ: ₹50,000"
+                    else "Saplings: ₹1,00,000\nFertilizer: ₹50,000\nFencing: ₹50,000\nLabor: ₹50,000"
+                binding.componentsContent.text = if (isKn)
+                    "1. ಹಣ್ಣಿನ ಸಸಿಗಳು\n2. ಸಾವಯವ ಗೊಬ್ಬರ\n3. ಕಬ್ಬಿಣದ ಬೇಲಿ"
+                    else "1. Fruit Saplings\n2. Organic Fertilizer\n3. Iron Fencing"
+            }
+            else -> {
+                binding.workSplitContent.text = if (isKn)
+                    "ಸಾಮಗ್ರಿಗಳು: 60%\nಕೂಲಿ: 30%\nನಿರ್ವಹಣೆ: 10%"
+                    else "Materials: 60%\nLabor: 30%\nManagement: 10%"
+                binding.componentsContent.text = if (isKn)
+                    "1. ಗುಣಮಟ್ಟದ ಕಚ್ಚಾ ವಸ್ತುಗಳು\n2. ಪರಿಣಿತ ಕೆಲಸಗಾರರು\n3. ಆಧುನಿಕ ಉಪಕರಣಗಳು"
+                    else "1. Quality Raw Materials\n2. Skilled Labor\n3. Modern Equipment"
+            }
         }
     }
 
