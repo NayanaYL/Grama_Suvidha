@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_admin"
+        android:icon="@drawable/ic_admin"
+        android:title="@string/admin_login"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_language"
         android:title="@string/change_language"
         app:showAsAction="never" />

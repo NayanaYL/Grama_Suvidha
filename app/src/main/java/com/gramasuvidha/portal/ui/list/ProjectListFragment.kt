@@ -27,7 +27,7 @@ class ProjectListFragment : Fragment() {
 
     private val viewModel: ProjectListViewModel by viewModels {
         val database = AppDatabase.getDatabase(requireContext())
-        val repository = ProjectRepository(database.projectDao(), database.feedbackDao())
+        val repository = ProjectRepository(database.projectDao(), database.feedbackDao(), database.userDao())
         object : androidx.lifecycle.ViewModelProvider.Factory {
             override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
                 @Suppress("UNCHECKED_CAST")
@@ -41,7 +41,6 @@ class ProjectListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProjectListBinding.inflate(inflater, container, false)
-        // Ensure the binding lifecycle is tied to the fragment's view
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         return binding.root
@@ -58,6 +57,16 @@ class ProjectListFragment : Fragment() {
     private fun setupClickListeners() {
         binding.settingsIcon.setOnClickListener {
             (activity as? MainActivity)?.showLanguageSelectionDialog()
+        }
+
+        binding.adminIcon.setOnClickListener {
+            findNavController().navigate(R.id.action_projectListFragment_to_loginFragment)
+        }
+
+        // Keep long press as a backup/hidden entry
+        binding.logoIcon.setOnLongClickListener {
+            findNavController().navigate(R.id.action_projectListFragment_to_loginFragment)
+            true
         }
 
         binding.tabAll.setOnClickListener {
@@ -102,14 +111,12 @@ class ProjectListFragment : Fragment() {
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                // Observe filter status
                 launch {
                     viewModel.filterStatus.collect { status ->
                         updateTabUI(status)
                     }
                 }
                 
-                // Observe project counts for summary cards
                 launch {
                     viewModel.ongoingCount.collect { count ->
                         binding.ongoingCountText.text = count.toString()

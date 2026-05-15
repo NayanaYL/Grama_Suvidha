@@ -45,6 +45,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.action_admin -> {
+                // Navigate to Login screen when admin icon in Toolbar is clicked
+                navController.navigate(R.id.loginFragment)
+                true
+            }
             R.id.action_language -> {
                 showLanguageSelectionDialog()
                 true

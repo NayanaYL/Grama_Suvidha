@@ -24,7 +24,7 @@ class ProjectDetailFragment : Fragment() {
 
     private val viewModel: ProjectDetailViewModel by viewModels {
         val database = AppDatabase.getDatabase(requireContext())
-        val repository = ProjectRepository(database.projectDao(), database.feedbackDao())
+        val repository = ProjectRepository(database.projectDao(), database.feedbackDao(), database.userDao())
         object : androidx.lifecycle.ViewModelProvider.Factory {
             override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
                 return ProjectDetailViewModel(repository) as T

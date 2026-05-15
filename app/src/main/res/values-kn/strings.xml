@@ -6,6 +6,9 @@
     <string name="kannada">ಕನ್ನಡ</string>
     <string name="settings">ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
     <string name="change_language">ಭಾಷೆ ಬದಲಾಯಿಸಿ</string>
+    <string name="login">ಲಾಗಿನ್</string>
+    <string name="admin_login">ಅಡ್ಮಿನ್ ಲಾಗಿನ್</string>
+    <string name="register">ನೋಂದಾಯಿಸಿ</string>
 
     <string name="village_digital_notice_board">ಗ್ರಾಮ ಡಿಜಿಟಲ್ ಮಾಹಿತಿ ಫಲಕ</string>
     <string name="ongoing">ಪ್ರಗತಿಯಲ್ಲಿದೆ</string>

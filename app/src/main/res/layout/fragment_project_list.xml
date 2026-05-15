@@ -62,8 +62,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@android:drawable/ic_menu_preferences"
-                    app:layout_constraintEnd_toStartOf="@id/menuIcon"
-                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:clickable="true"
                     android:focusable="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
@@ -71,13 +70,18 @@
                     app:layout_constraintBottom_toBottomOf="@id/titleMain"/>
 
                 <ImageView
-                    android:id="@+id/menuIcon"
+                    android:id="@+id/adminIcon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@android:drawable/ic_menu_sort_by_size"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/titleMain"
-                    app:layout_constraintBottom_toBottomOf="@id/titleMain"/>
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_admin"
+                    app:layout_constraintEnd_toStartOf="@id/settingsIcon"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:layout_constraintTop_toTopOf="@id/settingsIcon"
+                    app:layout_constraintBottom_toBottomOf="@id/settingsIcon"
+                    app:tint="#1A237E" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.AppBarLayout>

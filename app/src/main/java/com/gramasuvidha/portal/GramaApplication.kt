@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.gramasuvidha.portal.data.local.AppDatabase
 import com.gramasuvidha.portal.data.local.entities.ProjectEntity
+import com.gramasuvidha.portal.data.local.entities.User
 import com.gramasuvidha.portal.data.repository.ProjectRepository
 import com.gramasuvidha.portal.util.LocaleHelper
 import kotlinx.coroutines.CoroutineScope
@@ -22,9 +23,12 @@ class GramaApplication : Application() {
         super.onCreate()
         
         val database = AppDatabase.getDatabase(this)
-        val repository = ProjectRepository(database.projectDao(), database.feedbackDao())
+        val repository = ProjectRepository(database.projectDao(), database.feedbackDao(), database.userDao())
         
         applicationScope.launch {
+            // Insert default admin user
+            repository.insertUser(User("admin", "admin123", "System Administrator", true))
+
             // Clear existing projects to ensure the list is updated correctly
             repository.deleteAllProjects()
 
@@ -247,46 +251,15 @@ class GramaApplication : Application() {
                     getString(R.string.proj_011_date),
                     getString(R.string.proj_011_status_en),
                     getString(R.string.proj_011_status_kn),
-                    55,
+                    40,
                     getString(R.string.proj_011_desc_en),
                     getString(R.string.proj_011_desc_kn),
                     getString(R.string.proj_011_before_img),
                     getString(R.string.proj_011_after_img)
-                ),
-                ProjectEntity(
-                    getString(R.string.proj_012_id),
-                    getString(R.string.proj_012_name_en),
-                    getString(R.string.proj_012_name_kn),
-                    getString(R.string.proj_012_location_en),
-                    getString(R.string.proj_012_location_kn),
-                    getString(R.string.proj_012_budget),
-                    getString(R.string.proj_012_date),
-                    getString(R.string.proj_012_status_en),
-                    getString(R.string.proj_012_status_kn),
-                    40,
-                    getString(R.string.proj_012_desc_en),
-                    getString(R.string.proj_012_desc_kn),
-                    getString(R.string.proj_012_before_img),
-                    getString(R.string.proj_012_after_img)
-                ),
-                ProjectEntity(
-                    getString(R.string.proj_013_id),
-                    getString(R.string.proj_013_name_en),
-                    getString(R.string.proj_013_name_kn),
-                    getString(R.string.proj_013_location_en),
-                    getString(R.string.proj_013_location_kn),
-                    getString(R.string.proj_013_budget),
-                    getString(R.string.proj_013_date),
-                    getString(R.string.proj_013_status_en),
-                    getString(R.string.proj_013_status_kn),
-                    65,
-                    getString(R.string.proj_013_desc_en),
-                    getString(R.string.proj_013_desc_kn),
-                    getString(R.string.proj_013_before_img),
-                    getString(R.string.proj_013_after_img)
                 )
             )
-            repository.insertProjects(allProjects)
+
+            allProjects.forEach { repository.insertProject(it) }
         }
     }
 }

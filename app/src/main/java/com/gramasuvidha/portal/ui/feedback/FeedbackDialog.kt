@@ -43,7 +43,7 @@ class FeedbackDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val database = AppDatabase.getDatabase(requireContext())
-        val repository = ProjectRepository(database.projectDao(), database.feedbackDao())
+        val repository = ProjectRepository(database.projectDao(), database.feedbackDao(), database.userDao())
 
         // Explicitly ensure RatingBar is interactive
         // Using setIsIndicator(false) because isIndicator can be treated as a read-only property in some contexts

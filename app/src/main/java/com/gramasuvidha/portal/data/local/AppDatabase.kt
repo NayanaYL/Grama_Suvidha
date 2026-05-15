@@ -6,13 +6,16 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.gramasuvidha.portal.data.local.dao.FeedbackDao
 import com.gramasuvidha.portal.data.local.dao.ProjectDao
+import com.gramasuvidha.portal.data.local.dao.UserDao
 import com.gramasuvidha.portal.data.local.entities.Feedback
 import com.gramasuvidha.portal.data.local.entities.ProjectEntity
+import com.gramasuvidha.portal.data.local.entities.User
 
-@Database(entities = [ProjectEntity::class, Feedback::class], version = 6, exportSchema = false)
+@Database(entities = [ProjectEntity::class, Feedback::class, User::class], version = 7, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun projectDao(): ProjectDao
     abstract fun feedbackDao(): FeedbackDao
+    abstract fun userDao(): UserDao
 
     companion object {
         @Volatile

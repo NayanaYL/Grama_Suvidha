@@ -6,6 +6,9 @@
     <string name="kannada">Kannada</string>
     <string name="settings">Settings</string>
     <string name="change_language">Change Language</string>
+    <string name="login">Login</string>
+    <string name="admin_login">Admin Login</string>
+    <string name="register">Register</string>
 
     <string name="village_digital_notice_board">VILLAGE DIGITAL NOTICE BOARD</string>
     <string name="ongoing">ONGOING</string>
